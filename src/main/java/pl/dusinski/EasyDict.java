@@ -63,8 +63,9 @@ public class EasyDict {
             int entNumber = Integer.parseInt(bufferedReader.readLine());
 
             while (!dt.checkAnswer(entNumber)) {
-                System.out.println("You have chosen wrong answer! Please repeat");
-                System.out.println("Your choice: ");
+                System.out.println("You have chosen wrong answer!");
+                System.out.println("Your choice: "+dt.getQuestionWord(entNumber) +" means: "+dt.getQuestionTranslation(entNumber));
+                System.out.println("Please repeat");
                 entNumber = Integer.parseInt(bufferedReader.readLine());
             }
             System.out.println("You have chosen right answer!");

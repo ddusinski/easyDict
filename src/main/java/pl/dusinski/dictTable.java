@@ -11,7 +11,7 @@ public class dictTable {
     private List<dictEntity> dictList = new ArrayList<>();
     private int randomDictEntityNumber;
     private dictEntity randomDictEntity = new dictEntity(null, null, 0);
-    private List<String> mixingWordList = new ArrayList<>();
+    private List<dictEntity> mixingDictEntityList = new ArrayList<>();
 
 
     public dictTable() {
@@ -29,15 +29,15 @@ public class dictTable {
 //        return this.dictList.get(--entityId).printDictEntity();
 //    }
 
-    private String drawLots() {
-        String tempWord = this.mixingWordList.get(0);
-        while (this.mixingWordList.contains(tempWord)) {
+    private dictEntity drawLots() {
+        dictEntity tempDictEntity = this.mixingDictEntityList.get(0);
+        while (this.mixingDictEntityList.contains(tempDictEntity)) {
             int randomInt = (int) (Math.random() * this.dictList.size());
-            tempWord = this.dictList.get(randomInt).returnEnglishWord();
+            tempDictEntity = this.dictList.get(randomInt);
 //            System.out.println(tempWord + "\n");
         }
 //          this.mixingWordList.add(tempWord);
-        return tempWord;
+        return tempDictEntity;
     }
 
     public String generateQuestion() {
@@ -47,36 +47,41 @@ public class dictTable {
         this.randomDictEntity = this.dictList.get(this.randomDictEntityNumber);
 
 
-        this.mixingWordList.clear();
-        this.mixingWordList.add(this.randomDictEntity.returnEnglishWord());
+        this.mixingDictEntityList.clear();
+        this.mixingDictEntityList.add(this.randomDictEntity);
 
-        this.mixingWordList.add(drawLots());
-        this.mixingWordList.add(drawLots());
+        this.mixingDictEntityList.add(drawLots());
+        this.mixingDictEntityList.add(drawLots());
 
-        Collections.shuffle(this.mixingWordList);
+        Collections.shuffle(this.mixingDictEntityList);
 
         question = "English version of: " + this.randomDictEntity.returnPolishWord() + "\n"
-                + " is: (1) " + this.mixingWordList.get(0) + "\n"
-                + " or: (2) " + this.mixingWordList.get(1) + "\n"
-                + " or: (3) " + this.mixingWordList.get(2);
+                + " is: (1) " + this.mixingDictEntityList.get(0).returnEnglishWord() + "\n"
+                + " or: (2) " + this.mixingDictEntityList.get(1).returnEnglishWord() + "\n"
+                + " or: (3) " + this.mixingDictEntityList.get(2).returnEnglishWord();
 
         return question;
     }
 
 
     public boolean checkAnswer(int choiceNumber) {
-        if (this.mixingWordList.get(--choiceNumber).equals(this.randomDictEntity.returnEnglishWord())) {
+        if (this.mixingDictEntityList.get(--choiceNumber).equals(this.randomDictEntity)) {
             return true;
         } else {
             return false;
         }
     }
 
-    public String getTranslation(int choiceNumber) {
+    public String getQuestionWord(int choiceNumber){
 
-//        check how to use two keys map??
+        return this.mixingDictEntityList.get(--choiceNumber).returnEnglishWord();
+    }
 
-        return this.dictList.get()
+
+
+    public String getQuestionTranslation(int choiceNumber) {
+
+        return this.dictList.get(--choiceNumber).returnPolishWord();
     }
 
 
