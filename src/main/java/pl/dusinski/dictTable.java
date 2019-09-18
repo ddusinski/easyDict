@@ -81,7 +81,7 @@ public class dictTable {
 
     public String getQuestionTranslation(int choiceNumber) {
 
-        return this.dictList.get(--choiceNumber).returnPolishWord();
+        return this.mixingDictEntityList.get(--choiceNumber).returnPolishWord();
     }
 
 
